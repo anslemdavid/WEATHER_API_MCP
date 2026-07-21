@@ -1,0 +1,20 @@
+{
+  "name": "weather-mcp",
+  "version": "1.0.0",
+  "description": "MCP Weather Server - Zero-config weather data for Claude",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/weather_tool.js",
+    "dev": "ts-node src/weather_tool.ts",
+    "test": "node dist/weather_tool.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^20.0.0"
+  }
+}

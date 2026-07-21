@@ -1,93 +1,93 @@
-# 🌦️ weather-api-mcp
+# 🌦️ Weather API MCP
 
-> Give Claude (or any MCP-compatible AI) live, real-world weather data — no API key, no signup, no cost.
+A zero-config MCP (Model Context Protocol) weather server for Claude AI. Get real-time weather data without API keys!
 
----
+## Features
 
-## ✨ What is this?
+✨ **Zero Configuration** - No API keys needed
+✨ **Multi-Location** - Get weather for any location
+✨ **Forecast Support** - 5-day weather forecasts
+✨ **Unit Conversion** - Celsius and Fahrenheit support
+✨ **Tool Use Integration** - Works seamlessly with Claude
 
-This repo is a **ready-to-use MCP (Model Context Protocol) server configuration**. Drop it into Claude Code or Claude Desktop, and your AI assistant instantly gains the ability to check real weather — forecasts, alerts, air quality, and more — for anywhere in the world.
-
-| | |
-|---|---|
-| 🔌 **Server** | [`@dangahagan/weather-mcp`](https://www.npmjs.com/package/@dangahagan/weather-mcp) |
-| 🌍 **Coverage** | Worldwide (NOAA for the US, Open-Meteo globally) |
-| 🔑 **API key needed** | **None** — completely free, zero signup |
-| ⚙️ **Setup time** | ~2 minutes |
-
----
-
-## 📦 What's inside
-
-```
-weather-api-mcp/
-├── .mcp.json     ← tells Claude how to launch the weather server
-└── README.md     ← you are here
-```
-
----
-
-## 🚀 Quick Start
-
-### Option A — Claude Code
+## Installation
 
 ```bash
-git clone <this-repo-url>
-cd weather-api-mcp
-claude
+cd WEATHER_API_MCP
+npm install
 ```
 
-Claude Code auto-detects `.mcp.json`. If prompted, approve the project's MCP servers — or add this to `.claude/settings.json`:
+## Usage
+
+### Development
+
+```bash
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+npm start
+```
+
+## API Functions
+
+### get_weather
+Get current weather for a location.
+
+**Parameters:**
+- `location` (string): Location name (e.g., 'London', 'New York')
+- `unit` (string, optional): 'celsius' or 'fahrenheit' (default: 'celsius')
+
+**Example:**
+```typescript
+getWeather('London', 'celsius')
+// Returns: { location, temperature, condition, humidity, wind_speed, pressure }
+```
+
+### get_forecast
+Get weather forecast for the next 5 days.
+
+**Parameters:**
+- `location` (string): Location name
+- `days` (number): Number of days to forecast (1-7)
+
+**Example:**
+```typescript
+getForecast('Tokyo', 3)
+// Returns: { location, forecast: [{ date, high_temp, low_temp, condition, precipitation_chance }] }
+```
+
+## Example Output
 
 ```json
 {
-  "enableAllProjectMcpServers": true
+  "location": "London, UK",
+  "temperature": 15,
+  "condition": "Partly Cloudy",
+  "humidity": 65,
+  "wind_speed": 12,
+  "pressure": 1013
 }
 ```
 
-### Option B — Claude Desktop
+## Integration with Claude
 
-Copy the contents of `.mcp.json` into your Claude Desktop config file:
+Use this MCP with Claude by configuring it in your MCP settings. Claude can automatically call weather functions in natural language:
 
-| OS | Config location |
-|---|---|
-| 🍎 macOS/Linux | `~/Library/Application Support/Claude/claude_desktop_config.json` |
-| 🪟 Windows | `%AppData%\Claude\claude_desktop_config.json` |
+- "What's the weather like in London?"
+- "Get me a 5-day forecast for Tokyo"
+- "Compare weather between Paris and New York"
 
-Then **restart Claude Desktop**.
+## Technical Stack
 
----
+- **Language**: TypeScript
+- **Runtime**: Node.js
+- **Protocol**: Model Context Protocol (MCP)
+- **AI**: Anthropic Claude API
 
-## ✅ Requirements
+## License
 
-- Node.js installed (so `npx` can fetch and run the server)
-
-That's it — no accounts, no API keys, no billing.
-
----
-
-## 💬 Try it out
-
-Once connected, just ask naturally:
-
-> 🌤️ *"What's the weather in Munich this weekend?"*
-> ⚠️ *"Any active weather alerts in Bavaria right now?"*
-> 🌫️ *"What's the air quality like in Ingolstadt today?"*
-
-The server fetches live data and Claude answers directly — no manual lookups needed.
-
----
-
-## 🛠️ Troubleshooting
-
-| Issue | Fix |
-|---|---|
-| Server doesn't show up | Restart Claude Code/Desktop after editing `.mcp.json` |
-| `npx` command not found | Install Node.js from [nodejs.org](https://nodejs.org) |
-| No weather data returned | Check your internet connection — the server calls NOAA/Open-Meteo live |
-
----
-
-## 📄 License
-
-This configuration is free to use, modify, and share. The underlying weather server (`@dangahagan/weather-mcp`) is MIT licensed.
+MIT
