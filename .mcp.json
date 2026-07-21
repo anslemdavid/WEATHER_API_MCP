@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "weather": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@dangahagan/weather-mcp"
+      ]
+    }
+  }
+}
