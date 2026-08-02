@@ -1,13 +1,40 @@
 # 🌦️ Weather API MCP
 
+<p>
+  <a href="https://github.com/anslemdavid/WEATHER_API_MCP">
+    <img src="https://img.shields.io/badge/View%20Code-181717?style=for-the-badge&logo=github&logoColor=white" alt="view code" />
+  </a>
+  <img src="https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Runtime-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/License-MIT-000?style=for-the-badge" alt="license" />
+</p>
+
+## Built with / Development tools
+
+<p>
+  <img src="https://skillicons.dev/icons?i=typescript,nodejs,npm,vscode" alt="tools" />
+</p>
+
+**Languages & Frameworks:** TypeScript
+
+**Runtime / Tooling:** Node.js, npm, TypeScript
+
+**Editor:** VS Code
+
+---
+
 A zero-config MCP (Model Context Protocol) weather server for Claude AI. Get real-time weather data without API keys!
 
 ## Features
 
 ✨ **Zero Configuration** - No API keys needed
+
 ✨ **Multi-Location** - Get weather for any location
+
 ✨ **Forecast Support** - 5-day weather forecasts
+
 ✨ **Unit Conversion** - Celsius and Fahrenheit support
+
 ✨ **Tool Use Integration** - Works seamlessly with Claude
 
 ## Installation
