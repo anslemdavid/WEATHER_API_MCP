@@ -43,7 +43,7 @@ _WEATHER_CODES = {
     82: "Violent rain showers",
     85: "Slight snow showers",
     86: "Heavy snow showers",
-     ಅದರ95: "Thunderstorm",
+    95: "Thunderstorm",
     96: "Thunderstorm with slight hail",
     99: "Thunderstorm with heavy hail",
 }
