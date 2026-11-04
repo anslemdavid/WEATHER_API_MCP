@@ -1,0 +1,19 @@
+[project]
+name = "weather-api-mcp"
+version = "1.1.0"
+description = "Zero-config MCP weather server for Claude — no API key needed"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0,<2.0",
+]
+
+[project.scripts]
+weather-mcp = "weather_mcp.server:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

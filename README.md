@@ -1,93 +1,63 @@
 # 🌦️ Weather API MCP
 
-A zero-config MCP (Model Context Protocol) weather server for Claude AI. Get real-time weather data without API keys!
+A zero-configuration Model Context Protocol (MCP) weather server for Claude and other MCP clients. It provides current conditions and forecasts using the free Open-Meteo APIs—no weather API key required.
 
 ## Features
 
-✨ **Zero Configuration** - No API keys needed
-✨ **Multi-Location** - Get weather for any location
-✨ **Forecast Support** - 5-day weather forecasts
-✨ **Unit Conversion** - Celsius and Fahrenheit support
-✨ **Tool Use Integration** - Works seamlessly with Claude
+- Current weather for locations worldwide
+- Forecasts for 1–7 days
+- Celsius or Fahrenheit temperatures
+- No weather API key required
+- Python implementation using the MCP Python SDK
 
-## Installation
+## Requirements
 
-```bash
-cd WEATHER_API_MCP
-npm install
-```
+- Python 3.10+
+- [`uv`](https://docs.astral.sh/uv/)
 
-## Usage
-
-### Development
+## Install and run
 
 ```bash
-npm run dev
+uv sync
+uv run weather-mcp
 ```
 
-### Build
+The server uses stdio transport for MCP clients. To install it into the active Python environment instead, run `pip install -e .` and then `weather-mcp`.
 
-```bash
-npm run build
-npm start
-```
+## Configure Claude Desktop
 
-## API Functions
-
-### get_weather
-Get current weather for a location.
-
-**Parameters:**
-- `location` (string): Location name (e.g., 'London', 'New York')
-- `unit` (string, optional): 'celsius' or 'fahrenheit' (default: 'celsius')
-
-**Example:**
-```typescript
-getWeather('London', 'celsius')
-// Returns: { location, temperature, condition, humidity, wind_speed, pressure }
-```
-
-### get_forecast
-Get weather forecast for the next 5 days.
-
-**Parameters:**
-- `location` (string): Location name
-- `days` (number): Number of days to forecast (1-7)
-
-**Example:**
-```typescript
-getForecast('Tokyo', 3)
-// Returns: { location, forecast: [{ date, high_temp, low_temp, condition, precipitation_chance }] }
-```
-
-## Example Output
+After installing the project with `uv sync`, add the following to your Claude Desktop MCP configuration, replacing `/absolute/path/to/WEATHER_API_MCP` with this repository's directory:
 
 ```json
 {
-  "location": "London, UK",
-  "temperature": 15,
-  "condition": "Partly Cloudy",
-  "humidity": 65,
-  "wind_speed": 12,
-  "pressure": 1013
+  "mcpServers": {
+    "weather": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/absolute/path/to/WEATHER_API_MCP",
+        "run",
+        "weather-mcp"
+      ]
+    }
+  }
 }
 ```
 
-## Integration with Claude
+## Tools
 
-Use this MCP with Claude by configuring it in your MCP settings. Claude can automatically call weather functions in natural language:
+### `get_weather`
 
-- "What's the weather like in London?"
-- "Get me a 5-day forecast for Tokyo"
-- "Compare weather between Paris and New York"
+Parameters: `location` (string), `unit` (`celsius` or `fahrenheit`, optional; defaults to Celsius).
 
-## Technical Stack
+Returns the resolved location, temperature, apparent temperature, weather condition, humidity, wind speed, and pressure.
 
-- **Language**: TypeScript
-- **Runtime**: Node.js
-- **Protocol**: Model Context Protocol (MCP)
-- **AI**: Anthropic Claude API
+### `get_forecast`
 
-## License
+Parameters: `location` (string), `days` (integer from 1 to 7, optional; defaults to 5), and `unit` (`celsius` or `fahrenheit`, optional; defaults to Celsius).
 
-MIT
+Returns daily high and low temperatures, conditions, and precipitation probabilities.
+
+## Data source
+
+Location lookup and weather data are provided by [Open-Meteo](https://open-meteo.com/). Internet access is required; no account or API key is needed.
