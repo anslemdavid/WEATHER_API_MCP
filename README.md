@@ -1,92 +1,82 @@
 # 🌦️ Weather API MCP
 
-A zero-config MCP (Model Context Protocol) weather server for Claude AI. Get real-time weather data without API keys!
+A zero-API-key weather MCP server rewritten in Python, backed by live data from [Open-Meteo](https://open-meteo.com/). It also includes a responsive weather dashboard with animated 3D scenes, interactive forecasts, and location search.
 
-## Features
+## What’s included
 
-✨ **Zero Configuration** - No API keys needed
-✨ **Multi-Location** - Get weather for any location
-✨ **Forecast Support** - 5-day weather forecasts
-✨ **Unit Conversion** - Celsius and Fahrenheit support
-✨ **Tool Use Integration** - Works seamlessly with Claude
+- **Live weather, not mock data:** current conditions and forecasts come from Open-Meteo.
+- **MCP tools:** `get_weather` and `get_forecast`, available over stdio for Claude Desktop and other MCP clients.
+- **No weather API key:** Open-Meteo’s public endpoints provide geocoding and forecast data without a key.
+- **Animated 3D dashboard:** Three.js sky, animated weather particles, live clock, location search, geolocation, and Celsius/Fahrenheit toggle.
+- **Python-first setup:** install with `uv` or `pip`; no Node runtime required for the Python server or dashboard.
 
-## Installation
+## Run the MCP server
 
-```bash
-cd WEATHER_API_MCP
-npm install
-```
-
-## Usage
-
-### Development
+Python 3.10+ and [uv](https://docs.astral.sh/uv/) are recommended:
 
 ```bash
-npm run dev
+uv sync
+uv run weather-mcp
 ```
 
-### Build
+Or install with pip:
 
 ```bash
-npm run build
-npm start
+python -m pip install .
+weather-mcp
 ```
 
-## API Functions
-
-### get_weather
-Get current weather for a location.
-
-**Parameters:**
-- `location` (string): Location name (e.g., 'London', 'New York')
-- `unit` (string, optional): 'celsius' or 'fahrenheit' (default: 'celsius')
-
-**Example:**
-```typescript
-getWeather('London', 'celsius')
-// Returns: { location, temperature, condition, humidity, wind_speed, pressure }
-```
-
-### get_forecast
-Get weather forecast for the next 5 days.
-
-**Parameters:**
-- `location` (string): Location name
-- `days` (number): Number of days to forecast (1-7)
-
-**Example:**
-```typescript
-getForecast('Tokyo', 3)
-// Returns: { location, forecast: [{ date, high_temp, low_temp, condition, precipitation_chance }] }
-```
-
-## Example Output
+The MCP server uses stdio. Configure your MCP client with the absolute repository path:
 
 ```json
 {
-  "location": "London, UK",
-  "temperature": 15,
-  "condition": "Partly Cloudy",
-  "humidity": 65,
-  "wind_speed": 12,
-  "pressure": 1013
+  "mcpServers": {
+    "weather": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/absolute/path/to/WEATHER_API_MCP",
+        "run",
+        "weather-mcp"
+      ]
+    }
+  }
 }
 ```
 
-## Integration with Claude
+The repository `.mcp.json` is a template; replace `/ABSOLUTE/PATH/TO/WEATHER_API_MCP` with your local checkout path before using it.
 
-Use this MCP with Claude by configuring it in your MCP settings. Claude can automatically call weather functions in natural language:
+### MCP tools
 
-- "What's the weather like in London?"
-- "Get me a 5-day forecast for Tokyo"
-- "Compare weather between Paris and New York"
+- `get_weather(location, unit="celsius")` — live conditions, humidity, feels-like temperature, wind, pressure, precipitation, and local observation time. `unit` accepts `celsius` or `fahrenheit`.
+- `get_forecast(location, days=5, unit="celsius")` — daily highs/lows, condition, precipitation chance, sunrise/sunset, UV index, and wind for 1–7 days.
 
-## Technical Stack
+Locations are resolved using Open-Meteo geocoding. The server reports an error for unknown locations instead of silently returning unrelated weather. Network/API failures are reported clearly; no fake readings are generated.
 
-- **Language**: TypeScript
-- **Runtime**: Node.js
-- **Protocol**: Model Context Protocol (MCP)
-- **AI**: Anthropic Claude API
+## Run the 3D dashboard
+
+```bash
+uv run weather-dashboard
+```
+
+Open <http://127.0.0.1:8000>. To choose a different port:
+
+```bash
+uv run weather-dashboard --port 8080
+```
+
+The dashboard retrieves live data directly from Open-Meteo in your browser. The Three.js library is loaded from a CDN, so the 3D scene requires an internet connection; the weather details and responsive layout remain usable if the animation library is unavailable. Use the location search, **Use my location**, or the °C/°F switch. Geolocation requires localhost or HTTPS and your permission.
+
+## Development
+
+```bash
+uv sync --extra dev
+uv run pytest
+```
+
+## Data and privacy
+
+Weather and location searches are sent to Open-Meteo. The dashboard only requests browser location after you click **Use my location**. No API key, account, or location storage is used by this project.
 
 ## License
 

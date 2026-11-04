@@ -1,12 +1,1 @@
-{
-  "mcpServers": {
-    "weather": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@dangahagan/weather-mcp"
-      ]
-    }
-  }
-}
+{"mcpServers":{"weather":{"command":"uv","args":["--directory","/ABSOLUTE/PATH/TO/WEATHER_API_MCP","run","weather-mcp"]}}}
