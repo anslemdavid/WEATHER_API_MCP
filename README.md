@@ -12,9 +12,13 @@ A zero-configuration Model Context Protocol (MCP) weather server for Claude and 
 
 ## SkyWear browser preview
 
-The project also has a standalone **SkyWear** weather-and-outfit preview: a responsive, animated interface that pairs weather conditions with practical clothing suggestions. Its design includes current conditions, hourly and 7-day forecasts, sunrise and sunset, wind, humidity, UV and air-quality details, location favorites, temperature-unit switching, sharing, and English, German, French, Spanish, and Kiswahili language options.
+Try the [SkyWear preview in Claude](https://claude.ai/chat/c8edda80-7a41-4397-a1d7-93f940f07d58?artifact=77134f8b-84d4-49e7-9580-14cdf6dc4c67).
 
-The supplied preview is currently configured with `DEMO=true`. It shows sample data for Ingolstadt, hides the city-search form, and does not make live weather requests. The HTML contains a live-data path using Open-Meteo geocoding, forecast, and air-quality APIs; set `DEMO=false` to use that path. Browser geolocation requires the page to be served from a secure context (HTTPS or localhost).
+For local development, open [SkyWear on localhost](http://127.0.0.1:8001/?city=Ingolstadt&unit=c&lang=en) after starting your local preview server. This address only works on the computer running the server; it is not a public website link.
+
+SkyWear is a responsive, animated weather-and-outfit interface. It presents current conditions, hourly and 7-day forecasts, sunrise and sunset, wind, humidity, UV and air-quality details, location favorites, temperature-unit switching, sharing, and English, German, French, Spanish, and Kiswahili language options.
+
+The supplied preview is currently configured with `DEMO=true`. It shows sample data for Ingolstadt, hides the city-search form, and does not make live weather requests. The HTML contains a live-data path using Open-Meteo geocoding, forecast, and air-quality APIs; set `DEMO=false` to use that path. Browser geolocation requires a secure context (HTTPS or localhost).
 
 The browser preview is a separate frontend concept; it is not the MCP server itself. The MCP server continues to run over stdio for MCP clients.
 
@@ -62,7 +66,7 @@ Returns the resolved location, temperature, apparent temperature, weather condit
 
 ### `get_forecast`
 
-Parameters: `location` (string), `days` (integer from 1 to 7, optional; defaults to 5), and `unit` (`celsius` or `fahrenheit`, optional; defaults to Celsius).
+Parameters: `location` (string), `days` (integer from 1 to 7, optional; defaults to 5), and `unit` (`celsius` or `fahrenheit`, optional; defaults to 5).
 
 Returns daily high and low temperatures, conditions, and precipitation probabilities.
 
