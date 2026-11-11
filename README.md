@@ -10,6 +10,14 @@ A zero-configuration Model Context Protocol (MCP) weather server for Claude and 
 - No weather API key required
 - Python implementation using the MCP Python SDK
 
+## SkyWear browser preview
+
+The project also has a standalone **SkyWear** weather-and-outfit preview: a responsive, animated interface that pairs weather conditions with practical clothing suggestions. Its design includes current conditions, hourly and 7-day forecasts, sunrise and sunset, wind, humidity, UV and air-quality details, location favorites, temperature-unit switching, sharing, and English, German, French, Spanish, and Kiswahili language options.
+
+The supplied preview is currently configured with `DEMO=true`. It shows sample data for Ingolstadt, hides the city-search form, and does not make live weather requests. The HTML contains a live-data path using Open-Meteo geocoding, forecast, and air-quality APIs; set `DEMO=false` to use that path. Browser geolocation requires the page to be served from a secure context (HTTPS or localhost).
+
+The browser preview is a separate frontend concept; it is not the MCP server itself. The MCP server continues to run over stdio for MCP clients.
+
 ## Requirements
 
 - Python 3.10+
@@ -60,4 +68,4 @@ Returns daily high and low temperatures, conditions, and precipitation probabili
 
 ## Data source
 
-Location lookup and weather data are provided by [Open-Meteo](https://open-meteo.com/). Internet access is required; no account or API key is needed.
+Location lookup and weather data are provided by [Open-Meteo](https://open-meteo.com/). Internet access is required for live weather; no account or API key is needed.
